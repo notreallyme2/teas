@@ -1,0 +1,7 @@
+# folders
+data-simulation
+
+# system
+.DS_store
+*.swp
+tags
