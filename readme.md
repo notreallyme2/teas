@@ -1,8 +1,15 @@
 
 
-*From Dan:
 
-Hi Lindsay,
+## Data sources:  
+https://www.synapse.org/#!Synapse:syn2787209/wiki/70351
+http://gnw.sourceforge.net/genenetweaver.html
+
+
+
+*From Dan:*
+
+"Hi Lindsay,
 
 After looking at my code, I realized it is probably easier to do this from scratch (using Algorithm 1 in the draft paper). I hadn’t been allowed any time to document things…
 
@@ -17,4 +24,4 @@ These two things are probably the only things really relevant here. Everything e
 Again, I think if we’re using any static data, there is little here of use, and it’s much easier to start over…
 
 Cheers,
-Dan
+Dan"
