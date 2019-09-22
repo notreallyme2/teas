@@ -1,8 +1,9 @@
 # folders
-data-simulation
-data
-papers
-models
+data-simulation/
+data/
+papers/
+models/
+.ipynb_checkpoints/
 
 # system
 .DS_store
