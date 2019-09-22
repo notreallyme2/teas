@@ -104,3 +104,28 @@ def update_lae_batch(model, X, lr, train = True):
         opt.step()
         opt.zero_grad()
     return loss.item()
+
+class LinearFEA(nn.Module):
+    """A pytorch module to build a linear forward-embedding autoencoder"""
+
+    def __init__(self, input_dim = 194, hidden_dim = 256, output_dim = 1643):
+        """
+        Parameters
+        ----------
+        input_dim : int
+            The number of input features
+        hidden_dim : int
+            The number of features in the hidden layer
+        output_dim : int
+            The number of output features
+        """
+        super().__init__()
+        self.input = nn.Linear(input_dim, hidden_dim)
+        self.predict_Y = nn.Linear(hidden_dim, output_dim)
+        self.reconstruct_X = nn.Linear(hidden_dim, input_dim)
+  
+    def forward(self, X):
+        Z = self.input(X)
+        Y_hat = self.predict_Y(Z)
+        X_tilde = self.reconstruct_X(Z)
+        return Y_hat, X_tilde
