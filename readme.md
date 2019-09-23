@@ -1,4 +1,6 @@
-
+To do:  
+1. Sort out the update functions; make them self-contained
+2. Build that actual TEA model!
 
 
 ## Data sources:  

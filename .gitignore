@@ -4,6 +4,7 @@ data/
 papers/
 models/
 .ipynb_checkpoints/
+__pycache__/
 
 # system
 .DS_store

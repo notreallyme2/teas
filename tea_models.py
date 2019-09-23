@@ -33,32 +33,31 @@ class LinearMLP(nn.Module):
         X = self.input(X)
         return (self.output(X))
 
-def update_lmlp_batch(model, X, Y, lr, train = True):
-    """update_batch takes a model, data, a learning rate and a boolean indicating whether this update 
-    should be treated as a training run (i.e. the model's weights should be updated) 
-    or not. This function is not for production use, as it has a number of hidden parameters (e.g. optimizer).  
-    
-    Parameters
-    ----------
-    model : torch.nn.mnodule
-        The model to be updated
-    X : torch.FloatTensor
-        The input data (i.e feature matrix)
-    Y : torch.FloatTensor
-        The target matrix)
-    lr : float
-        The learning rate to be passed to the optimizer
-    train : bool
-        Should the weights be updated (default = True)
-    """
-    Y_hat = model(X)
-    loss = loss_func(Y_hat, Y)
-    if train:
-        opt = optim.Adam(model.parameters(), lr)
-        loss.backward()
-        opt.step()
-        opt.zero_grad()
-    return loss.item()
+    def update_batch(self, X, Y, optimizer, criterion, train = True):
+        """update_batch takes a model, data, a learning rate and a boolean indicating whether this update 
+        should be treated as a training run (i.e. the model's weights should be updated) 
+        or not. This function is not for production use, as it has a number of hidden parameters (e.g. optimizer).  
+
+        Parameters
+        ----------
+        model : torch.nn.mnodule
+            The model to be updated
+        X : torch.FloatTensor
+            The input data (i.e feature matrix)
+        Y : torch.FloatTensor
+            The target matrix)
+        lr : float
+            The learning rate to be passed to the optimizer
+        train : bool
+            Should the weights be updated (default = True)
+        """
+        Y_hat = self.forward(X)
+        loss = criterion(Y_hat, Y)
+        if train:
+            loss.backward()
+            optimizer.step()
+            optimizer.zero_grad()
+        return loss.item()
 
 class LinearAE(nn.Module):
     """A pytorch module to build a simple linear autoencoder"""
@@ -79,31 +78,30 @@ class LinearAE(nn.Module):
     def forward(self, X):
         X = self.input(X)
         return (self.output(X))
-    
-def update_lae_batch(model, X, lr, train = True):
-    """update_batch takes a model, data, a learning rate and a boolean indicating whether this update 
-    should be treated as a training run (i.e. the model's weights should be updated) 
-    or not. This function is not for production use, as it has a number of hidden parameters (e.g. optimizer).  
-    
-    Parameters
-    ----------
-    model : torch.nn.mnodule
-        The model to be updated
-    X : torch.FloatTensor
-        The input data (i.e feature matrix)
-    lr : float
-        The learning rate to be passed to the optimizer
-    train : bool
-        Should the weights be updated (default = True)
-    """
-    X_tilde = model(X)
-    loss = mse(X_tilde, X)
-    if train:
-        opt = optim.Adam(model.parameters(), lr)
-        loss.backward()
-        opt.step()
-        opt.zero_grad()
-    return loss.item()
+
+    def update_batch(self, X, optimizer, criterion, train = True):
+        """update_batch takes a model, data, a learning rate and a boolean indicating whether this update 
+        should be treated as a training run (i.e. the model's weights should be updated) 
+        or not. This function is not for production use, as it has a number of hidden parameters (e.g. optimizer).  
+
+        Parameters
+        ----------
+        model : torch.nn.mnodule
+            The model to be updated
+        X : torch.FloatTensor
+            The input data (i.e feature matrix)
+        lr : float
+            The learning rate to be passed to the optimizer
+        train : bool
+            Should the weights be updated (default = True)
+        """
+        X_tilde = self.forward(X)
+        loss = criterion(X_tilde, X)
+        if train:
+            loss.backward()
+            optimizer.step()
+            optimizer.zero_grad()
+        return loss.item()
 
 class LinearFEA(nn.Module):
     """A pytorch module to build a linear forward-embedding autoencoder"""
@@ -129,3 +127,29 @@ class LinearFEA(nn.Module):
         Y_hat = self.predict_Y(Z)
         X_tilde = self.reconstruct_X(Z)
         return Y_hat, X_tilde
+    
+    def update_batch(self, X, Y, optimizer, criterion, train = True):
+        """update_batch takes a model, data, a learning rate and a boolean indicating whether this update 
+        should be treated as a training run (i.e. the model's weights should be updated) 
+        or not. This function is not for production use, as it has a number of hidden parameters (e.g. optimizer).  
+
+        Parameters
+        ----------
+        model : torch.nn.mnodule
+            The model to be updated
+        X : torch.FloatTensor
+            The input data (i.e feature matrix)
+        Y : torch.FloatTensor
+            The target matrix)
+        lr : float
+            The learning rate to be passed to the optimizer
+        train : bool
+            Should the weights be updated (default = True)
+        """
+        Y_hat, X_tilde = self.forward(X)
+        loss = criterion(X, X_tilde, Y, Y_hat)
+        if train:
+            loss.backward()
+            optimizer.step()
+            optimizer.zero_grad()
+        return loss.item()
