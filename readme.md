@@ -4,7 +4,8 @@
 
 
 ## To do:
-1. Rename x_idx to x_bool
+1. Create a predictor in LinearTEA
+2. Move LinearTEA code into linear_models.py
 
 ## Notes  
 1. Lasso baseline  
