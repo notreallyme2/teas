@@ -1,12 +1,23 @@
-To do:  
-1. Sort out the update functions; make them self-contained
-2. Build that actual TEA model!
+# TARGET-EMBEDDING AUTOENCODERS
+
+## Results
+
+
+## To do:
+1. Rename x_idx to x_bool
+
+## Notes  
+1. Lasso baseline  
+Initially, the lasso model just used the first variable in X. Excluding that variable resulted in better-looking predictions (although a slightly higher MSE).  
+Perhaps the model was just predicting X[0]?
+Perhaps we should exclude the inputs from the output for now, it may be making things too easy. CHECKED THIS BUT NO.
+The synthetic data is weird. I'm going to try the real data instead.
+
 
 
 ## Data sources:  
 https://www.synapse.org/#!Synapse:syn2787209/wiki/70351
 http://gnw.sourceforge.net/genenetweaver.html
-
 
 
 *From Dan:*

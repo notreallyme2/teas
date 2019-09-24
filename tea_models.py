@@ -11,8 +11,8 @@ from torch import nn, optim, tensor, FloatTensor
 from torch.utils.data import Dataset, DataLoader, random_split
 import torch.nn.functional as F
 
-class NonLinearMLP(nn.Module):
-    """A pytorch module to build a nonlinear multilayer perceptron"""
+class LinearMLP(nn.Module):
+    """A pytorch module to build a simple linear multilayer perceptron"""
 
     def __init__(self, input_dim = 194, hidden_dim = 256, output_dim = 1643):
         """
@@ -30,7 +30,7 @@ class NonLinearMLP(nn.Module):
         self.output = nn.Linear(hidden_dim, output_dim)
   
     def forward(self, X):
-        X = F.relu(self.input(X))
+        X = self.input(X)
         return (self.output(X))
 
     def update_batch(self, X, Y, optimizer, criterion, train = True):
@@ -59,8 +59,8 @@ class NonLinearMLP(nn.Module):
             optimizer.zero_grad()
         return loss.item()
 
-class NonLinearAE(nn.Module):
-    """A pytorch module to build a nonlinear autoencoder"""
+class LinearAE(nn.Module):
+    """A pytorch module to build a simple linear autoencoder"""
 
     def __init__(self, input_dim = 194, hidden_dim = 256):
         """
@@ -76,7 +76,7 @@ class NonLinearAE(nn.Module):
         self.output = nn.Linear(hidden_dim, input_dim)
   
     def forward(self, X):
-        X = F.relu(self.input(X))
+        X = self.input(X)
         return (self.output(X))
 
     def update_batch(self, X, optimizer, criterion, train = True):
