@@ -14,6 +14,9 @@ Perhaps the model was just predicting X[0]?
 Perhaps we should exclude the inputs from the output for now, it may be making things too easy. CHECKED THIS BUT NO.
 The synthetic data is weird. I'm going to try the real data instead.
 
+I have an answer. The output layers (even in the lasso) are just memorising the data.
+Normalising has fixed that problem, but now I don't have enought data, so running GeneNetWeaver to generate some more.
+
 
 
 ## Data sources:  
