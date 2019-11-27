@@ -4,21 +4,25 @@
 import argparse
 from os import listdir
 from os.path import isfile, join
-import typing
-from typing import List
 import pandas as pd
 
 def main(args):
     data_path = args[0]
-    tsv_files = [f for f in listdir(data_path) if f.endswith(".tsv")]
-
+    # collect the names of all .tsv files, except those with "nonoise" (these have "noise" in the title)
+    tsv_files = [f for f in listdir(data_path) if f.endswith(".tsv") and "noise" not in f]
+    if len(tsv_files) == 0:
+        raise ValueError('No .tsv files found.')
+    # load these into a list of pandas DataFrames
     all_dfs = [pd.read_csv(join(data_path, f), sep="\t") for f in tsv_files]
+    # we need the number of nodes in the network
+    col_size = [df.shape[1] for df in all_dfs]
+    num_nodes = max(set(col_size), key=col_size.count) # take the mode as the most probable number of nodes
 
     merged_df = all_dfs[0]
 
     for df in all_dfs[1:]:
-        if df.shape[1] != 100:
-            if df.shape[1] == 101:
+        if df.shape[1] != num_nodes:
+            if df.shape[1] == (num_nodes + 1): # when there is a 'Time' column
                 merged_df = merged_df.append(df.iloc[:,1:], sort=True)
             else:
                 pass
