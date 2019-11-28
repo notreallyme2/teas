@@ -17,6 +17,16 @@ The synthetic data is weird. I'm going to try the real data instead.
 I have an answer. The output layers (even in the lasso) are just memorising the data.
 Normalising has fixed that problem, but now I don't have enought data, so running GeneNetWeaver to generate some more.
 
+## Repository structure
+TEAS
+- data
+    - gnw_utilities 
+    - skl_synthetic
+    - datasets
+- models
+    - linear_models
+    - nonliner_models
+    - lasso_baseline
 
 
 ## Data sources:  
