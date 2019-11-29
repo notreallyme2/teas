@@ -1,8 +1,5 @@
 # folders
-data-simulation/
-data/
-papers/
-models/
+saved/
 .ipynb_checkpoints/
 __pycache__/
 

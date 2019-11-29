@@ -1,13 +1,17 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+"""
+This script takes the files outputed by GeneNetWeaver and combines them into a single merged.csv file.
+It saves merged.csv into the same directory as the original files.
+"""
+
 import argparse
 from os import listdir
 from os.path import isfile, join
 import pandas as pd
 
-def main(args):
-    data_path = args[0]
+def aggregate_gnw_data(data_path):
     # collect the names of all .tsv files, except those with "nonoise" (these have "noise" in the title)
     tsv_files = [f for f in listdir(data_path) if f.endswith(".tsv") and "noise" not in f]
     if len(tsv_files) == 0:
@@ -35,4 +39,5 @@ if __name__ == "main_":
     parser = argparse.ArgumentParser(description='Take the output from SysGenSim and combine the rows into a single .csv file.')
     parser.add_argument("--path", help="path to the folder containing SysGenSim output")
     args = parser.parse_args()
-    main(args)
+    data_path = args[0]
+    aggregate_gnw_data(data_path)

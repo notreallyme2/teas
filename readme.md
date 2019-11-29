@@ -1,54 +1,34 @@
-# TARGET-EMBEDDING AUTOENCODERS
-
+# Target-Embedding Autoencoders
+Models drawn from xxx et al.  
+  
 ## Results
+All results are MSE on a held-out test set
 
-
-## To do:
-1. Create a predictor in LinearTEA
-2. Move LinearTEA code into linear_models.py
+| Dataset        | Model     | MSE      |
+| :------------- | :-------  | :------  |
+|  sklearn       | Lasso     | 0.07288  |
+| L1000 / GTEX   | Lasso     | tba      | |
 
 ## Notes  
-1. Lasso baseline  
-Initially, the lasso model just used the first variable in X. Excluding that variable resulted in better-looking predictions (although a slightly higher MSE).  
-Perhaps the model was just predicting X[0]?
-Perhaps we should exclude the inputs from the output for now, it may be making things too easy. CHECKED THIS BUT NO.
-The synthetic data is weird. I'm going to try the real data instead.
+* GeneNetWeaver utilities are not working yet  
 
-I have an answer. The output layers (even in the lasso) are just memorising the data.
-Normalising has fixed that problem, but now I don't have enought data, so running GeneNetWeaver to generate some more.
+## To do
+1. Move functions to .py files (use Fire)
+2. Train all models on sklearn data
 
 ## Repository structure
-TEAS
-- data
-    - gnw_utilities 
-    - skl_synthetic
-    - datasets
-- models
-    - linear_models
-    - nonliner_models
-    - lasso_baseline
+|–teas  
+––|––data  
+––––|––aggregate_gnw_data
+––––|––skl_synthetic  
+––––|––datasets  
+––|––models  
+––––|––linear_models  
+––––|––nonlinear_models  
+––––|––lasso_baseline
 
 
 ## Data sources:  
 https://www.synapse.org/#!Synapse:syn2787209/wiki/70351
 http://gnw.sourceforge.net/genenetweaver.html
 
-
-*From Dan:*
-
-"Hi Lindsay,
-
-After looking at my code, I realized it is probably easier to do this from scratch (using Algorithm 1 in the draft paper). I hadn’t been allowed any time to document things…
-
-At the moment my code is heavily oriented towards time series. Attached is a linear example; I’ve pared this done and moved some stuff around so it is (slightly) easier to look at. I believe only the following two things are relevant in the static setting:
-
-Graph is in lines 83-93. HAT means \hat{}, and TIL means \tilde{}; these respectively refer to the prediction and reconstruction versions of each variable.
-
-Optimizers are in lines 151-186, and 414-448. This should correspond to Algorithm 1. For each solver, the XXX binary notation denotes predictor, encoder, and decoder. For instance, “solver_101” trains the predictor and decoder, but not the encoder. Direct prediction (without target-autoencoding) is simply training using “solver_101” (instead of the 3 stages using 011, 100, then 111).
-
-These two things are probably the only things really relevant here. Everything else is just getting the dimensions of the time series to and from various orders, and computing time-series specific averages for performance metrics, dividing variables into static, temporal, binary, continuous, dataset-specific variable indexing, etc.
-
-Again, I think if we’re using any static data, there is little here of use, and it’s much easier to start over…
-
-Cheers,
-Dan"
