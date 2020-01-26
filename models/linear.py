@@ -79,9 +79,14 @@ class LinearAE(nn.Module):
         X = self.input(X)
         return (self.output(X))
 
+    def Z_from_X(self, X):
+        return self.input(X)
+
+    def X_from_Z(self, Z):
+        return self.output(Z)
+
     def update_batch(self, X, optimizer, criterion, train = True):
-        """update_batch takes a model, data, a learning rate and a boolean indicating whether this update 
-        should be treated as a training run (i.e. the model's weights should be updated) 
+        """update_batch takes a model, data, a learning rate and a boolean indicating whether this update should be treated as a training run (i.e. the model's weights should be updated) 
         or not. 
 
         Parameters
@@ -148,6 +153,61 @@ class LinearFEA(nn.Module):
         """
         Y_hat, X_tilde = self.forward(X)
         loss = criterion(X, X_tilde, Y, Y_hat)
+        if train:
+            loss.backward()
+            optimizer.step()
+            optimizer.zero_grad()
+        return loss.item()
+
+class LinearTEA(nn.Module):
+    """A pytorch module to build a linear target-embedding autoencoder"""
+
+    def __init__(self, input_dim=100, hidden_dim = 256, output_dim=1000):
+        """
+        Parameters
+        ----------
+        input_dim : int
+            The number of input features
+        hidden_dim : int
+            The number of features in the hidden layer
+        output_dim : int
+            The number of output features
+        """
+        super().__init__()
+        self.input_X = nn.Linear(input_dim, hidden_dim)
+        self.input_Y = nn.Linear(output_dim, hidden_dim)
+        self.predict_Y = nn.Linear(hidden_dim, output_dim)
+  
+    def forward(self, X, Y):
+        Z_from_X = self.input_X(X)
+        Z_from_Y = self.input_Y(Y)
+        Y_hat = self.predict_Y(Z_from_Y)
+        return Y_hat, Z_from_Y, Z_from_X
+    
+    def predict_Y_from_X(self, X):
+        """Make a prediction of Y from X only. For inference use."""
+        Z_from_X = self.input_X(X)
+        Y_hat = self.predict_Y(Z_from_X)
+        return Y_hat
+    
+    def update_batch(self, X, Y, optimizer, criterion, train = True):
+        """update_batch takes a model, data, a learning rate and a boolean indicating whether this update 
+        should be treated as a training run (i.e. the model's weights should be updated) 
+        or not.  
+
+        Parameters
+        ----------
+        model : torch.nn.mnodule
+            The model to be updated
+        X : torch.FloatTensor
+            The input data (i.e feature matrix)
+        Y : torch.FloatTensor
+            (The target matrix)
+        train : bool
+            Should the weights be updated (default = True)
+        """
+        Y_hat, Z, Z_hat = self.forward(X, Y)
+        loss = criterion(Y, Y_hat, Z, Z_hat)
         if train:
             loss.backward()
             optimizer.step()
