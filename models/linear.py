@@ -14,7 +14,7 @@ import torch.nn.functional as F
 class LinearMLP(nn.Module):
     """A pytorch module to build a simple linear multilayer perceptron"""
 
-    def __init__(self, input_dim = 194, hidden_dim = 256, output_dim = 1643):
+    def __init__(self, input_dim = 100, hidden_dim = 512, output_dim = 1000):
         """
         Parameters
         ----------
@@ -36,7 +36,7 @@ class LinearMLP(nn.Module):
     def update_batch(self, X, Y, optimizer, criterion, train = True):
         """update_batch takes a model, data, a learning rate and a boolean indicating whether this update 
         should be treated as a training run (i.e. the model's weights should be updated) 
-        or not. This function is not for production use, as it has a number of hidden parameters (e.g. optimizer).  
+        or not.  
 
         Parameters
         ----------
@@ -62,7 +62,7 @@ class LinearMLP(nn.Module):
 class LinearAE(nn.Module):
     """A pytorch module to build a simple linear autoencoder"""
 
-    def __init__(self, input_dim = 194, hidden_dim = 256):
+    def __init__(self, input_dim = 100, hidden_dim = 512):
         """
         Parameters
         ----------
@@ -82,7 +82,7 @@ class LinearAE(nn.Module):
     def update_batch(self, X, optimizer, criterion, train = True):
         """update_batch takes a model, data, a learning rate and a boolean indicating whether this update 
         should be treated as a training run (i.e. the model's weights should be updated) 
-        or not. This function is not for production use, as it has a number of hidden parameters (e.g. optimizer).  
+        or not. 
 
         Parameters
         ----------
@@ -106,7 +106,7 @@ class LinearAE(nn.Module):
 class LinearFEA(nn.Module):
     """A pytorch module to build a linear forward-embedding autoencoder"""
 
-    def __init__(self, input_dim = 194, hidden_dim = 256, output_dim = 1643):
+    def __init__(self, input_dim = 100, hidden_dim = 512, output_dim = 1000):
         """
         Parameters
         ----------
@@ -131,8 +131,8 @@ class LinearFEA(nn.Module):
     def update_batch(self, X, Y, optimizer, criterion, train = True):
         """update_batch takes a model, data, a learning rate and a boolean indicating whether this update 
         should be treated as a training run (i.e. the model's weights should be updated) 
-        or not. This function is not for production use, as it has a number of hidden parameters (e.g. optimizer).  
-
+        or not.  
+        
         Parameters
         ----------
         model : torch.nn.mnodule
