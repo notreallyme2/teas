@@ -16,18 +16,19 @@ GeneNetWeaver utilities are not working yet
 First, use an AE to encode $Y \to Z \to Y$  
 Then train an MLP: $f: X \to Z$  
 Look at the performance of $X \to Z \to Y$
-Transer these weights into a full implementation of a TEA
+Transfer these weights into a full implementation of a TEA
 
 ## Results
 
 All results are MSE on a held-out test set. You should get similar results by running the `train_x.py` scripts for each model.  
 
-| Dataset        | Model      | MSE      |
-| :------------- | :-------   | :------  |
-| sklearn        | Lasso      | 0.03996  |
-| L1000 / GTEX   | Lasso      | tba      |
-| sklearn        | Linear MLP | 0.01569  |
-| sklearn        | Linear FEA | 0.01427  |
+| Dataset        | Model         | MSE      |
+| :------------- | :-------      | :------  |
+| sklearn        | Lasso         | 0.03996  |
+| L1000 / GTEX   | Lasso         | tba      |
+| sklearn        | Linear MLP    | 0.01569  |
+| sklearn        | Linear FEA    | 0.01427  |
+|sklearn         | Piecewise TEA | 0.01316
 
 ## To do
 
