@@ -1,4 +1,4 @@
-from skl_synthetic import *
+from data.skl_synthetic import *
 home = Path.home()
 path_for_data = home/"teas-data/sklearn/"
 
