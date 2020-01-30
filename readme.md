@@ -3,11 +3,15 @@
 Models drawn from xxx et al.  
 
 ## Notes
+To run the tests.
+From the root directory, install `teas`:
+`pip install -e .`
+Then run `python -m pytest`
 
 **NB Data must always be normalised.**  
 I'm not doing it in the `train_xx.py` scripts, because the data are synthetically generated and normalised by default.  
 
-When running `train_lasso_baseline.py` the plots of $X$ and $Y$ variance explained are checking that inputs and outputs are compressible (or why botther with a TEAS model).  
+When running `train_lasso_baseline.py` the plots of $X$ *and *$Y$ *variance explained* are checking that inputs and outputs are compressible (or why bother with a TEAS model!?).  
 Other commented-out plots are legacy from ealier work.  
 
 GeneNetWeaver utilities are not working yet  

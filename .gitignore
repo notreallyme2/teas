@@ -2,6 +2,9 @@
 saved/
 .ipynb_checkpoints/
 __pycache__/
+.pytest_cache
+.vscode/
+teas.egg-info
 
 # system
 .DS_store
