@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "/Users/lindsayedwards/venvs/fastai/bin/python",
+    "python.pythonPath": "/Users/lindsayedwards/anaconda3/envs/fastai/bin/python",
     "python.linting.enabled": true
 }
