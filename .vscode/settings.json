@@ -1,4 +1,5 @@
 {
-    "python.pythonPath": "/Users/lindsayedwards/anaconda3/envs/fastai/bin/python",
-    "python.linting.enabled": true
+    "python.pythonPath": "/Users/lindsayedwards/.local/share/virtualenvs/teas-nkH_i1BD/bin/python",
+    "python.linting.enabled": true,
+    "python.dataScience.jupyterServerURI": "local"
 }

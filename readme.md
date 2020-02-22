@@ -4,8 +4,9 @@ Models drawn from xxx et al.
 
 ## Notes
 
-1. Check that the tests run and pass: `python -m pytest`
-2. Check that the training scripts run ok (`train_xxx.py`)
+1. Install dependencies: `pipenv install`
+2. Check that the tests run and pass: `python -m pytest`
+3. Check that the training scripts run ok (`python3 train_xxx.py`)
 
 **NB Data must always be normalised.**  
 I'm not doing it in the `train_xxx.py` scripts, because the data are synthetically generated and normalised by default.  
@@ -29,10 +30,9 @@ All results are MSE on a held-out test set. You should get similar results by ru
 | Dataset        | Model         | MSE      |
 | :------------- | :-------      | :------  |
 | sklearn        | Lasso         | 0.03996  |
-| L1000 / GTEX   | Lasso         | tba      |
 | sklearn        | Linear MLP    | 0.01569  |
 | sklearn        | Linear FEA    | 0.01427  |
-|sklearn         | Piecewise TEA | 0.01316
+|sklearn         | Linear TEA    | 0.01429  ||
 
 ## To do
 
