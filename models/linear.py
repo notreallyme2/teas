@@ -225,18 +225,25 @@ class LinearTEA(nn.Module):
         self.predict_Y = nn.Linear(hidden_dim, output_dim)
   
     def forward(self, X, Y):
+        """ Forward pass through the model
+
+        Parameters
+        ----------
+        X : tensor
+        Y : tensor
+        """
         Z_from_X = self.input_X(X)
         Z_from_Y = self.input_Y(Y)
         Y_hat = self.predict_Y(Z_from_Y)
         return Y_hat, Z_from_Y, Z_from_X
     
     def predict_Y_from_X(self, X):
-        """Make a prediction of Y from X only. For inference use."""
+        """Make a prediction of Y from X. For inference use"""
         Z_from_X = self.input_X(X)
         Y_hat = self.predict_Y(Z_from_X)
         return Y_hat
     
-    def update_batch(self, X, Y, optimizer, criterion, train = True):
+    def update_batch(self, X, Y, optimizer, criterion, y_mode = False, train = True):
         """update_batch takes a model, data, a learning rate and a boolean indicating whether this update 
         should be treated as a training run (i.e. the model's weights should be updated) 
         or not.  
@@ -252,7 +259,7 @@ class LinearTEA(nn.Module):
         train : bool
             Should the weights be updated (default = True)
         """
-        Y_hat, Z, Z_hat = self.forward(X, Y)
+        Y_hat, Z, Z_hat = self.forward(X, Y, y_mode)
         loss = criterion(Y, Y_hat, Z, Z_hat)
         if train:
             loss.backward()
