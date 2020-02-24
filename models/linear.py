@@ -32,8 +32,7 @@ class LinearMLP(nn.Module):
         return (self.net(X))
 
     def update_batch(self, X, Y, optimizer, criterion, train = True):
-            """update_batch takes a model, data, a learning rate and a boolean indicating whether this update 
-            should be treated as a training run (i.e. the model's weights should be updated) 
+            """update_batch takes data, an optimizer, a loss function and a boolean indicating whether this update should be treated as a training run (i.e. the model's weights should be updated) 
             or not.  
 
             Parameters
@@ -86,7 +85,7 @@ class LinearAE(nn.Module):
         return self.output(Z)
 
     def update_batch(self, X, optimizer, criterion, train = True):
-        """update_batch takes a model, data, a learning rate and a boolean indicating whether this update should be treated as a training run (i.e. the model's weights should be updated) 
+        """update_batch takes data, an optimizer, a loss function and a boolean indicating whether this update should be treated as a training run (i.e. the model's weights should be updated) 
         or not. 
 
         Parameters
@@ -95,8 +94,6 @@ class LinearAE(nn.Module):
             The model to be updated
         X : torch.FloatTensor
             The input data (i.e feature matrix)
-        Y : torch.FloatTensor
-            The target matrix)
         optimizer : torch.optim
             The optimizer to be used
         criterion : torch.nn.Module
@@ -138,9 +135,8 @@ class LinearFEA(nn.Module):
         return Y_hat, X_tilde
     
     def update_batch(self, X, Y, optimizer, criterion, train = True):
-        """update_batch takes a model, data, a learning rate and a boolean indicating whether this update 
-        should be treated as a training run (i.e. the model's weights should be updated) 
-        or not.  
+        """update_batch takes data, an optimizer, a loss function and a boolean indicating whether this update should be treated as a training run (i.e. the model's weights should be updated) 
+        or not. 
         
         Parameters
         ----------
@@ -204,8 +200,7 @@ class LinearTEA(nn.Module):
         return Y_hat
     
     def update_batch(self, X, Y, optimizer, criterion, train = True):
-        """update_batch takes a model, data, a learning rate and a boolean indicating whether this update 
-        should be treated as a training run (i.e. the model's weights should be updated) 
+        """update_batch takes data, an optimizer, a loss function and a boolean indicating whether this update should be treated as a training run (i.e. the model's weights should be updated) 
         or not.  
 
         Parameters
