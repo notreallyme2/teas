@@ -11,7 +11,7 @@ import torch
 from torch import nn, optim, tensor, FloatTensor
 from torch.utils.data import Dataset, TensorDataset, DataLoader
 
-from data.skl_synthetic import make_skl_dataset, load_skl_data
+from data.skl_synthetic import load_skl_data
 from models.linear import LinearMLP, LinearAE, LinearFEA
 from plotting import plot_losses, plot_predicted_vs_actual
 
@@ -27,7 +27,7 @@ torch.manual_seed(123)
 home = Path.home()
 path_for_data = home/"teas-data/sklearn/"
 if not os.path.exists(path_for_data):
-    make_skl_dataset()
+    raise ValueError("No data. By default, this script uses synthetic data that you can generate by running skl_synthetic.py. Otherwise please modify this script")
 if os.path.exists(path_for_data):
     X_train, X_valid, X_test, Y_train, Y_valid, Y_test = map(FloatTensor, load_skl_data(path_for_data))
 
