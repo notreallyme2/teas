@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-"""This module contains classes (models) and methods for exploring linear and non-linear autoencoders
+"""This module contains classes (models) and methods for exploring linear autoencoders
 
 """
 import numpy as np
