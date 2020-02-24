@@ -4,7 +4,7 @@ An implementation of Target Embedding Autoencoders using Pytorch. As described i
 
 ## How to use
 
-These scripts will run out of the box on synthetically generated data. To generate the data, run `skl_synthetic.py`
+These scripts will run out of the box on synthetically generated data. To generate the data, run `python3 data/skl_synthetic.py`
 
 ## Install notes
 
@@ -14,14 +14,12 @@ These scripts will run out of the box on synthetically generated data. To genera
 4. Create the synthetic dataset by running `python3 data/skl_synthetic.py`
 5. Check that the tests run and pass: `python -m pytest`
 6. Check that the training scripts run ok (`python3 train_xxx.py`)
+7. The TEAs model example is in `linear_teas.ipynb`
 
 ### Using your own data
 
-**NB Data must always be normalized.**  
-The synthetic data comes pre-normalised, but if running these models on data in the wild, ensure it is normalized first  
-
-When running `train_lasso_baseline.py` the plots of $X$ *and* $Y$ *variance explained* are checking that inputs and outputs are compressible (or why bother with a TEAS model!?).  
-Other commented-out plots are legacy from earlier work.  
+* **NB Data must always be normalized.**  
+* The synthetic data comes pre-normalised, but if running these models on data in the wild, ensure it is normalized first  
 
 ## Results
 
@@ -32,4 +30,8 @@ All results are MSE on a held-out test set. You should get similar results by ru
 | sklearn        | Lasso         | 0.03996  |
 | sklearn        | Linear MLP    | 0.01569  |
 | sklearn        | Linear FEA    | 0.01427  |
-|sklearn         | Linear TEA    | 0.01429  ||
+|sklearn         | Linear TEA    | 0.01429  |
+
+## To do
+
+1. Create a `nonlinear.py` version with ReLUs
