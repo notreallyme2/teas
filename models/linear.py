@@ -11,25 +11,25 @@ from torch import nn, optim, tensor, FloatTensor
 from torch.utils.data import Dataset, DataLoader, random_split
 import torch.nn.functional as F
 
-class MiniLinearMLP(nn.Module):
-    """A pytorch module to build an even simpler linear multilayer perceptron"""
+class LinearMLP(nn.Module):
+    """A pytorch module to build a simple linear multilayer perceptron"""
 
-    def __init__(self, input_dim = 100, output_dim = 1000):
+    def __init__(self, arch = [100, 100]):
         """
         Parameters
         ----------
-        input_dim : int
-            The number of input features
-        hidden_dim : int
-            The number of features in the hidden layer
-        output_dim : int
-            The number of output features
+        arch : list[int]
+            The architecture of the MLP. Each element in the list is the number of nodes in a layer. E.g. arch = [100, 50, 100] creates an MLP with 100 inputs and outpus and a 50 node hidden layer
         """
         super().__init__()
-        self.input_output = nn.Linear(input_dim, output_dim)
+        self.arch = arch
+        layers = []
+        for i in range(len(self.arch) - 1):
+            layers.append(nn.Linear(self.arch[i], self.arch[i+1]))
+        self.net = nn.Sequential(*layers)
   
     def forward(self, X):
-        return (self.input_output(X))
+        return (self.net(X))
 
     def update_batch(self, X, Y, optimizer, criterion, train = True):
             """update_batch takes a model, data, a learning rate and a boolean indicating whether this update 
@@ -56,54 +56,6 @@ class MiniLinearMLP(nn.Module):
                 optimizer.step()
                 optimizer.zero_grad()
             return loss.item()
-
-class LinearMLP(nn.Module):
-    """A pytorch module to build a simple linear multilayer perceptron"""
-
-    def __init__(self, input_dim = 100, hidden_dim = 512, output_dim = 1000):
-        """
-        Parameters
-        ----------
-        input_dim : int
-            The number of input features
-        hidden_dim : int
-            The number of features in the hidden layer
-        output_dim : int
-            The number of output features
-        """
-        super().__init__()
-        self.input = nn.Linear(input_dim, hidden_dim)
-        self.output = nn.Linear(hidden_dim, output_dim)
-  
-    def forward(self, X):
-        X = self.input(X)
-        return (self.output(X))
-
-    def update_batch(self, X, Y, optimizer, criterion, train = True):
-        """update_batch takes a model, data, a learning rate and a boolean indicating whether this update 
-        should be treated as a training run (i.e. the model's weights should be updated) 
-        or not.  
-
-        Parameters
-        ----------
-        model : torch.nn.mnodule
-            The model to be updated
-        X : torch.FloatTensor
-            The input data (i.e feature matrix)
-        Y : torch.FloatTensor
-            The target matrix)
-        lr : float
-            The learning rate to be passed to the optimizer
-        train : bool
-            Should the weights be updated (default = True)
-        """
-        Y_hat = self.forward(X)
-        loss = criterion(Y_hat, Y)
-        if train:
-            loss.backward()
-            optimizer.step()
-            optimizer.zero_grad()
-        return loss.item()
 
 class LinearAE(nn.Module):
     """A pytorch module to build a simple linear autoencoder"""

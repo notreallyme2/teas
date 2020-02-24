@@ -45,7 +45,7 @@ def main(*args, **kwargs):
     output_dim = Y.shape[0]
 
     # first, train and benchmark a simple Linear MLP 
-    lmlp_model = LinearMLP(input_dim=input_dim, hidden_dim=512, output_dim=output_dim)
+    lmlp_model = LinearMLP([input_dim, 512, output_dim])
 
     # train the linear MLP
     epochs = 10
