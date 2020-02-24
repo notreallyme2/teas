@@ -44,8 +44,10 @@ class LinearMLP(nn.Module):
                 The input data (i.e feature matrix)
             Y : torch.FloatTensor
                 The target matrix)
-            lr : float
-                The learning rate to be passed to the optimizer
+            optimizer : torch.optim
+                The optimizer to be used
+            criterion : torch.nn.Module
+                The loss function
             train : bool
                 Should the weights be updated (default = True)
             """
@@ -93,8 +95,12 @@ class LinearAE(nn.Module):
             The model to be updated
         X : torch.FloatTensor
             The input data (i.e feature matrix)
-        lr : float
-            The learning rate to be passed to the optimizer
+        Y : torch.FloatTensor
+            The target matrix)
+        optimizer : torch.optim
+            The optimizer to be used
+        criterion : torch.nn.Module
+            The loss function
         train : bool
             Should the weights be updated (default = True)
         """
@@ -144,8 +150,10 @@ class LinearFEA(nn.Module):
             The input data (i.e feature matrix)
         Y : torch.FloatTensor
             The target matrix)
-        lr : float
-            The learning rate to be passed to the optimizer
+        optimizer : torch.optim
+            The optimizer to be used
+        criterion : torch.nn.Module
+            The loss function
         train : bool
             Should the weights be updated (default = True)
         """
@@ -207,7 +215,11 @@ class LinearTEA(nn.Module):
         X : torch.FloatTensor
             The input data (i.e feature matrix)
         Y : torch.FloatTensor
-            (The target matrix)
+            The target matrix)
+        optimizer : torch.optim
+            The optimizer to be used
+        criterion : torch.nn.Module
+            The loss function
         train : bool
             Should the weights be updated (default = True)
         """

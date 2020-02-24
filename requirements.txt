@@ -1,3 +1,0 @@
-Python 3.7.6
-Numpy 1.18.1
-Scikit-learn 0.22.1
