@@ -195,7 +195,7 @@ class LinearTEA(nn.Module):
         Y_hat = self.predict_Y(Z_from_X)
         return Y_hat
     
-    def update_batch(self, X, Y, optimizer, criterion, y_mode = False, train = True):
+    def update_batch(self, X, Y, optimizer, criterion, train = True):
         """update_batch takes a model, data, a learning rate and a boolean indicating whether this update 
         should be treated as a training run (i.e. the model's weights should be updated) 
         or not.  
@@ -211,7 +211,7 @@ class LinearTEA(nn.Module):
         train : bool
             Should the weights be updated (default = True)
         """
-        Y_hat, Z, Z_hat = self.forward(X, Y, y_mode)
+        Y_hat, Z, Z_hat = self.forward(X, Y)
         loss = criterion(Y, Y_hat, Z, Z_hat)
         if train:
             loss.backward()
