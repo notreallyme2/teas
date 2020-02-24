@@ -1,27 +1,27 @@
 # Target-Embedding Autoencoders
 
-Models drawn from xxx et al.  
+An implementation of Target Embedding Autoencoders using Pytorch. As described in ["Target-Embedding Autoencoders for Supervised Representation Learning" by Jarret and van der Schaar](https://openreview.net/forum?id=BygXFkSYDH)
 
-## Notes
+## How to use
 
-1. Install dependencies: `pipenv install`
-2. Check that the tests run and pass: `python -m pytest`
-3. Check that the training scripts run ok (`python3 train_xxx.py`)
+These scripts will run out of the box on synthetically generated data. To generate the data, run `skl_synthetic.py`
 
-**NB Data must always be normalised.**  
-I'm not doing it in the `train_xxx.py` scripts, because the data are synthetically generated and normalised by default.  
+## Install notes
+
+1. Clone the repo
+2. Make sure you have [pytest](https://pypi.org/project/pytest/) and [pipenv](https://pipenv.kennethreitz.org/en/latest/) installed
+3. We use `pipenv` to manage dependencies. To install all the things, run: `pipenv install` from the repo's root directory
+4. Create the synthetic dataset by running `python3 data/skl_synthetic.py`
+5. Check that the tests run and pass: `python -m pytest`
+6. Check that the training scripts run ok (`python3 train_xxx.py`)
+
+### Using your own data
+
+**NB Data must always be normalized.**  
+The synthetic data comes pre-normalised, but if running these models on data in the wild, ensure it is normalized first  
 
 When running `train_lasso_baseline.py` the plots of $X$ *and* $Y$ *variance explained* are checking that inputs and outputs are compressible (or why bother with a TEAS model!?).  
-Other commented-out plots are legacy from ealier work.  
-
-GeneNetWeaver utilities are not working yet  
-
-### On building up a TEA
-
-* First, use an AE to encode $Y \to Z \to Y$  
-* Then train an MLP: $f: X \to Z$  
-* Look at the performance of $X \to Z \to Y$  
-* Transfer these weights into a full implementation of a TEA
+Other commented-out plots are legacy from earlier work.  
 
 ## Results
 
@@ -33,31 +33,3 @@ All results are MSE on a held-out test set. You should get similar results by ru
 | sklearn        | Linear MLP    | 0.01569  |
 | sklearn        | Linear FEA    | 0.01427  |
 |sklearn         | Linear TEA    | 0.01429  ||
-
-## To do
-
-1. Train all models on sklearn data
-2. Refactor (doing this now):  
-   1. Get rid of .ipynb files
-   2. Put all variables into .json files
-   3. Create logging
-
-## Repository structure
-
-|–teas/  
-––|––train_mlp.py  
-––|––train_linear_feas.py  
-––|––linear_teas.ipynb  
-––|––test_models.py  
-––|––test_data_utilities.py  
-––|––data/  
-––––|––aggregate_gnw_datacc
-––––|––skl_synthetic  
-––––|––datasets  
-––|––models/  
-––––|––linear  
-
-## Data sources  
-
-https://www.synapse.org/#!Synapse:syn2787209/wiki/70351
-http://gnw.sourceforge.net/genenetweaver.html

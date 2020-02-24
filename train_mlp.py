@@ -26,7 +26,7 @@ def main(*args, **kwargs):
     home = Path.home()
     path_for_data = home/"teas-data/sklearn/"
     if not os.path.exists(path_for_data):
-        make_skl_dataset()
+        raise ValueError("No data. By default, this script uses synthetic data that you can generate by running skl_synthetic.py. Otherwise please modify this script")
     if os.path.exists(path_for_data):
         X_train, X_valid, X_test, Y_train, Y_valid, Y_test = map(FloatTensor, load_skl_data(path_for_data))
 
